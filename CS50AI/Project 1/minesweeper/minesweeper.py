@@ -219,7 +219,7 @@ class MinesweeperAI():
         """
         returns cell that are 1 cell away from cell passed in arg
         """
-        # returns cells close to arg cell by 1 cell
+        # Returns cells close to arg cell by 1 cell
         close_cells = set()
         for rows in range(self.height):
             for columns in range(self.width):
@@ -231,9 +231,9 @@ class MinesweeperAI():
         """
         check knowledge for new safes and mines, updates knowledge if possible
         """
-        # copies the knowledge to operate on copy
+        # Copies the knowledge to operate on copy
         knowledge_copy = copy.deepcopy(self.knowledge)
-        # iterates through sentences
+        # Iterates through sentences
 
         for sentence in knowledge_copy:
             if len(sentence.cells) == 0:
@@ -241,11 +241,11 @@ class MinesweeperAI():
                     self.knowledge.remove(sentence)
                 except ValueError:
                     pass
-            # check for possible mines and safes
+            # Check for possible mines and safes
             mines = sentence.known_mines()
             safes = sentence.known_safes()
 
-            # update knowledge if mine or safe was found
+            # Update knowledge if mine or safe was found
             if mines:
                 for mine in mines:
                     self.mark_mine(mine)
@@ -259,10 +259,10 @@ class MinesweeperAI():
         """
         update knowledge based on inference
         """
-        # iterate through pairs of sentences
+        # Iterate through pairs of sentences
         for sentence1 in self.knowledge:
             for sentence2 in self.knowledge:
-                # check if sentence 1 is subset of sentence 2
+                # Check if sentence 1 is subset of sentence 2
                 if sentence1.cells.issubset(sentence2.cells):
                     new_cells = sentence2.cells - sentence1.cells
                     new_count = sentence2.count - sentence1.count
@@ -287,7 +287,7 @@ class MinesweeperAI():
         and self.moves_made, but should not modify any of those values.
         """
         for i in self.safes - self.moves_made:
-            # choose first safe cell that wasn't picked before
+            # Choose first safe cell that wasn't picked before
             return i
         
         return None
